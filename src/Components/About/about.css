@@ -1,0 +1,86 @@
+.section1 {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  top: 11%;
+  z-index: 1002;
+  text-align: center;
+  padding: 2rem 0 2rem 0;
+  background: rgba(33, 53, 71, 0.5);
+  border-radius: 10px;
+  color: rgb(196, 192, 192);
+  border: solid black 2px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.section0 {
+  height: 85%;
+  -webkit-clip-path: inset(19% 0 0 0);
+          clip-path: inset(19% 0 0 0);
+  width: 80%;
+  position: fixed;
+  border: 2px solid black;
+  align-items: center;
+  margin: 0;
+  left: 10%;
+  right: 10%;
+  top: 14%;
+  background: white;
+  border-radius: 10px;
+  opacity: 95%;
+  z-index: 1001;
+  padding-top: 14%;
+  overflow-y: scroll;
+}
+.section0 .section2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 4rem;
+}
+.section0 .text {
+  width: 100%;
+  padding-left: 5rem;
+}
+.section0 .slika1 {
+  width: 50%;
+  padding-left: 3rem;
+}
+.section0 .slika1 img {
+  border-radius: 1rem;
+  height: 20rem;
+  width: 30rem;
+}
+
+.tekst h1 {
+  padding-top: 2rem;
+  font-weight: normal;
+}
+
+.naslov h1 {
+  font-size: 2rem;
+  padding-top: 1.5rem;
+}
+
+.tekstdesno h1 {
+  padding-top: 2rem;
+  font-weight: normal;
+}
+
+.textdesno {
+  width: 100%;
+  padding-right: 5rem;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  border-radius: 10px;
+}/*# sourceMappingURL=about.css.map */

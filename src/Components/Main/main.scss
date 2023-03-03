@@ -1,0 +1,298 @@
+:root {
+  --PrimaryColor: hsl(199, 100%, 33%);
+  --SecondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient(
+    to right,
+    hsl(187, 85%, 43%),
+    hsl(199, 100%, 33%)
+  );
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --textColor: hsl(240, 4%, 36%);
+  --whiteColorDeam: hsl (0, 0%, 93%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: rgb(239, 239, 239);
+  --bodyColor: rgb(240, 240, 246);
+  --cardBG: rgb(225, 225, 235);
+  --cardHover: rgb(255, 255, 255);
+}
+
+.main {
+  width: 100%;
+  .secTitle {
+    .title {
+      position: relative;
+      width: max-content;
+      color: var(--textColor);
+      margin: 1rem 0;
+
+      &::after {
+        position: absolute;
+        content: "";
+        background-color: var(--SecondaryColor);
+        height: 5px;
+        width: 120px;
+        right: 0;
+        bottom: 5px;
+        z-index: -1;
+      }
+    }
+  }
+  .secContent {
+    justify-content: center;
+    gap: 1.5rem;
+
+    .singleDestination {
+      height: 100%;
+      display: grid;
+      row-gap: 10px;
+      margin-top: 20px;
+      border-radius: 10px;
+      align-items: center;
+      background: var(--cardBG);
+      box-shadow: 0 2px 4px rgba(140, 140, 141, 0.549);
+      overflow: hidden;
+      &:hover {
+        background: var(--cardHover);
+        box-shadow: 1 4px 4px rgba(85, 85, 114, 0.549);
+        transition: 0.3s ease;
+      }
+      .imageDiv {
+        height: 180px;
+        width: 100%;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          transition: 0.2s ease;
+        }
+
+        &:hover {
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .cardInfo {
+        padding: 1rem;
+        .destTitle {
+          color: var(--blackColor);
+          font-size: 1.25rem;
+        }
+        .continent {
+          gap: 0.5rem;
+
+          .icon {
+            color: var(--textColor);
+            font-size: 18px;
+          }
+          .name {
+            color: var(--textColor);
+            font-weight: 400;
+            font-size: 14px;
+          }
+        }
+
+        .fees {
+          width: 100%;
+          justify-content: space-between;
+          padding: 1rem;
+          margin: 1rem 0;
+          border-top: 1.5px solid var(--greyText);
+          border-bottom: 1.5px solid var(--greyText);
+
+          .grade {
+            color: var(--textColor);
+            max-width: 100px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            small {
+              text-align: center;
+              background: var(--gradientColor);
+              border-radius: 1rem;
+              color: var(--whiteColor);
+              padding: 1px 10px;
+              font-size: 10px;
+            }
+          }
+          .price {
+            font-size: 2rem;
+            color: var(--blackColor);
+          }
+        }
+
+        .desc {
+          font-size: 13.5px;
+          color: var(--textColor);
+          font-weight: 500;
+        }
+        .btn {
+          margin-top: 1rem;
+          color: var(--whiteColor);
+          font-weight: 600;
+          justify-content: space-between;
+          gap: 0.5rem;
+
+          .icon {
+            align-self: center;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 500px) {
+  .title {
+    font-size: 1.5rem;
+    &::after {
+      width: 155px !important;
+    }
+  }
+  .secContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .singleDestination {
+      height: auto;
+    }
+  }
+}
+@media screen and (min-width: 840px) {
+  .secContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .singleDestination {
+      height: auto;
+    }
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+.main2 {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  padding-top: 3%;
+  z-index: 1;
+  .singleDestination2 {
+    z-index: 22222;
+    height: 80%;
+
+    width: 95%;
+    margin: auto;
+    border-radius: 10px;
+    border: solid rgb(99, 92, 92) 1px;
+    background: var(--cardBG);
+    box-shadow: 0 2px 4px rgba(140, 140, 141, 0.549);
+    overflow: hidden;
+
+    .imageDiv2 {
+      width: 50%;
+      overflow: hidden;
+      img {
+        width: 90%;
+        aspect-ratio: 2;
+        display: -webkit-box;
+        margin-left: auto;
+        border-radius: 10px;
+
+        transition: 0.2s ease;
+      }
+    }
+
+    .cardInfo2 {
+      padding: 1rem;
+      .price2 {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        color: var(--textColor);
+        h5 {
+          width: 15%;
+        }
+      }
+      .destTitle2 {
+        color: var(--blackColor);
+        font-size: 1.5rem;
+      }
+      .continent2 {
+        gap: 0.7rem;
+
+        .icon {
+          color: var(--textColor);
+          font-size: 18px;
+        }
+        .name {
+          color: var(--textColor);
+          font-weight: 400;
+          font-size: 14px;
+        }
+      }
+
+      .fees2 {
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-top: 1.5px solid var(--greyText);
+        border-bottom: 1.5px solid var(--greyText);
+
+        .grade2 {
+          max-width: 45%;
+          color: var(--textColor);
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .desc2 {
+        font-size: 0.9rem;
+        color: var(--textColor);
+        font-weight: 500;
+      }
+      .btn {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        padding: 0.7rem 3rem 0.7rem 3rem;
+        color: var(--whiteColor);
+        font-weight: 600;
+        gap: 0.5rem;
+        &:hover {
+          color: black;
+          background: rgba(22, 148, 85, 0.26);
+          box-shadow: 0 4px 4px rgba(51, 51, 75, 0.6);
+          transition: 0.3s ease;
+        }
+      }
+
+      .icon {
+        align-self: center;
+        font-size: 18px;
+      }
+    }
+  }
+}
+.dateRange {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dateRange h3 {
+  max-width: 1.9rem;
+  margin-right: 1rem;
+}
+
+.backdrop {
+  z-index: -1;
+}

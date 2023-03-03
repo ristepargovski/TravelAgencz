@@ -1,0 +1,224 @@
+.main1 {
+  margin: 0;
+}
+.main1 .secContent1 {
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.main1 .secContent1 .singleDestination {
+  display: grid;
+  row-gap: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  align-items: center;
+  background: var(--cardHover);
+  border: 0.5px solid grey;
+  overflow: hidden;
+}
+.main1 .secContent1 .singleDestination:hover {
+  transform: scale(1.09);
+  background: var(--cardHover);
+}
+.main1 .secContent1 .singleDestination .imageDiv {
+  height: 180px;
+  width: 100%;
+  overflow: hidden;
+}
+.main1 .secContent1 .singleDestination .imageDiv img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: 0.2s ease;
+}
+.main1 .secContent1 .singleDestination .imageDiv:hover img {
+  transform: scale(1.15);
+}
+.main1 .secContent1 .singleDestination .cardInfo {
+  padding: 1rem;
+}
+.main1 .secContent1 .singleDestination .cardInfo .destTitle {
+  color: var(--blackColor);
+  font-size: 1.25rem;
+}
+.main1 .secContent1 .singleDestination .cardInfo .continent {
+  gap: 0.5rem;
+}
+.main1 .secContent1 .singleDestination .cardInfo .continent .icon {
+  color: var(--textColor);
+  font-size: 18px;
+}
+.main1 .secContent1 .singleDestination .cardInfo .continent .name {
+  color: var(--textColor);
+  font-weight: 400;
+  font-size: 14px;
+}
+.main1 .secContent1 .singleDestination .cardInfo .fees {
+  width: 100%;
+  justify-content: space-between;
+  border-top: 1.5px solid var(--greyText);
+}
+.main1 .secContent1 .singleDestination .cardInfo .fees .grade {
+  display: flex;
+  gap: 1rem;
+}
+.main1 .secContent1 .singleDestination .cardInfo .fees .grade span {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--textColor);
+}
+.main1 .secContent1 .singleDestination .cardInfo .fees .grade span .icon {
+  font-size: 20px;
+}
+.main1 .secContent1 .singleDestination .cardInfo .fees .price {
+  text-align: right;
+}
+.main1 .secContent1 .singleDestination .cardInfo .desc {
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  color: var(--textColor);
+}
+.main1 .secContent1 .singleDestination .cardInfo .btn {
+  background-color: var(--blackColor);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-top: 1.2rem;
+  transition: all 0.2s;
+}
+.main1 .secContent1 .singleDestination .cardInfo .btn:hover {
+  background-color: var(--blueColor);
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.grade1 {
+  width: 30%;
+  bottom: 20%;
+  transform: translateY(100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--textColor);
+  gap: 1rem;
+}
+
+.grade1 span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.grade1 span .icon {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.grade1 span div {
+  display: inline-block;
+  font-size: 13px;
+  transform: translateX(-6%);
+}
+
+.grade1 span .icon {
+  font-size: 1.6rem;
+}
+
+.secContent2 {
+  height: 80%;
+  width: 76%;
+  position: fixed;
+  top: 15%;
+  left: 12%;
+  right: 12%;
+}
+.secContent2 .singleDestination2 {
+  border-radius: 10px;
+  background: var(--cardHover);
+  border: 0.5px solid grey;
+}
+.secContent2 .singleDestination2 .imageDiv22 {
+  overflow: hidden;
+}
+.secContent2 .singleDestination2 .imageDiv22 img {
+  width: 50vh;
+  height: 100%;
+  transition: 0.2s ease;
+}
+.secContent2 .singleDestination2 .imageDiv22:hover img {
+  transform: scale(1.2);
+}
+.secContent2 .singleDestination2 .cardInfo2 {
+  padding: 2rem;
+}
+.secContent2 .singleDestination2 .cardInfo2 .destTitle2 {
+  color: var(--blackColor);
+  font-size: 2rem;
+}
+.secContent2 .singleDestination2 .cardInfo2 .continent2 .name2 {
+  color: var(--textColor);
+  font-weight: 400;
+  font-size: 14px;
+}
+.secContent2 .singleDestination2 .cardInfo2 .fees2 {
+  width: 100%;
+  border-top: 1.5px solid var(--greyText);
+}
+.secContent2 .singleDestination2 .cardInfo2 .desc2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--textColor);
+}
+.secContent2 .singleDestination2 .cardInfo2 .btn {
+  background-color: var(--blackColor);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-top: 1.2rem;
+  transition: all 0.2s;
+}
+.secContent2 .singleDestination2 .cardInfo2 .btn:hover {
+  background-color: var(--blueColor);
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.grade2 {
+  width: 85%;
+  display: flex;
+  justify-content: end;
+  color: var(--textColor);
+}
+
+.grade2 span {
+  justify-content: center;
+  width: 6%;
+  align-items: center;
+  justify-content: center;
+}
+
+.grade2 span .icon {
+  margin-bottom: 5px;
+  width: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.grade2 span .icon div {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=carrental.css.map */

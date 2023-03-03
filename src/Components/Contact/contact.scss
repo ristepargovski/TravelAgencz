@@ -1,0 +1,123 @@
+.section-cela {
+  height: 50%;
+  width: 35%;
+  display: grid;
+  position: fixed;
+  border: 2px solid black;
+  padding: 2rem 4rem 0 4rem;
+  align-items: center;
+  margin: 0;
+  left: 32.5%;
+  right: 32.5%;
+  top: 16%;
+  background: white;
+  border-radius: 10px;
+  opacity: 90%;
+  overflow: hidden;
+}
+
+//
+// .h1name {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: end;
+//   padding-right: 15%;
+// }
+// .h1name input {
+//   margin-left: 10px;
+//   text-align: center;
+//   width: 65%;
+// }
+// .h1name {
+//   margin: 0; /* reset default margin of h1 tag */
+// }
+.divtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.divname {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  h1 {
+    display: flex;
+    align-items: center;
+    width: 25%;
+    overflow: hidden;
+  }
+}
+
+.inputname,
+.inputemail,
+.inputsubject,
+.inputmessage {
+  width: 60%;
+  margin-left: 10px;
+  padding: 5px;
+  overflow: hidden;
+}
+.backdrop {
+  position: fixed;
+  top: 9%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.h1name {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.h1name span {
+  margin-right: 10px;
+}
+
+.arrowicon {
+  margin-left: 10%;
+  justify-self: flex-end;
+}
+.errormessage {
+  height: 30%;
+  color: red;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.errorMessageDiv {
+  display: flex;
+  flex-direction: column;
+  height: 6rem;
+  gap: 8px;
+  z-index: 1;
+  padding-bottom: 1%;
+  justify-content: center;
+  text-align: center;
+  vertical-align: center;
+}
+.iconError {
+  margin-right: 10px;
+}
+.errorMessageDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20%;
+}
+.btng {
+  padding: 0.6rem 1.5rem;
+  background-color: green;
+  border-radius: 3rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
