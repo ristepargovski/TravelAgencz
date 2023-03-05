@@ -2,7 +2,6 @@ import React, {useRef, useState} from "react";
 import "./contact.css";
 import {GoArrowRight} from "react-icons/go";
 import {RiErrorWarningFill} from "react-icons/ri";
-
 function Contact() {
   const [nameError, SetNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -13,6 +12,9 @@ function Contact() {
   const [emptySubject, setEmptySubject] = useState("");
   const [emptyMessage, setEmptyMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
+  const [successName, setSuccessName] = useState(false);
+  const [successEmail, setSuccessEmail] = useState(false);
+  const [successSubject, setSuccessSubject] = useState(false);
 
   const nameref = useRef();
   const emailref = useRef();
@@ -51,8 +53,17 @@ function Contact() {
           },
         }
       ).then((res) => {
-        if (res.ok) {
+        if (
+          res.ok ||
+          successMessage === false ||
+          successName === false ||
+          successEmail === false ||
+          successSubject === false
+        ) {
           setSuccessMessage(true);
+          setSuccessName(true);
+          setSuccessEmail(true);
+          setSuccessSubject(true);
         } else {
           setSuccessMessage(false);
         }
@@ -88,13 +99,12 @@ function Contact() {
                 SetNameError("Please enter your name.\n");
               } else {
                 nameref.current.style.borderColor = "black";
-                setSuccessMessage(false);
+                setSuccessName(false);
                 SetNameError("");
               }
             }}
           />
         </div>
-
         <div className="divname">
           <h1 className="h1name">
             Email <GoArrowRight className="arrowicon" />
@@ -111,7 +121,7 @@ function Contact() {
                 emailref.current.style.borderColor = "red";
               } else {
                 emailref.current.style.borderColor = "black";
-                setSuccessMessage(false);
+                setSuccessEmail(false);
                 setEmailError("");
               }
             }}
@@ -133,7 +143,7 @@ function Contact() {
                 subjectref.current.style.borderColor = "red";
               } else {
                 subjectref.current.style.borderColor = "black";
-                setSuccessMessage(false);
+                setSuccessSubject(false);
                 setSubjectError("");
               }
             }}
@@ -161,7 +171,6 @@ function Contact() {
             }}
           />
         </div>
-
         {!successMessage ? (
           <button className="btn" onClick={buttonHandler}>
             Send Email
@@ -171,6 +180,7 @@ function Contact() {
             Successfully Sent
           </button>
         )}
+
         <div className="errorMessageDiv">
           <p className="errormessage">
             {nameError && <RiErrorWarningFill className="iconError" />}

@@ -6,7 +6,7 @@ import Main from "./Components/Main/Main";
 import NavBar from "./Components/Navbar/Navbar";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import CarRental from "./Components/CarRental/Carrental";
-
+import LoadingSpinner from "./Components/LoadingSpinner/LoadingSpinner";
 const App = () => {
   const packagesRef = useRef(null);
 
@@ -27,9 +27,9 @@ const App = () => {
           element={
             <>
               <NavBar packagesRef={packagesRef} />
-
               <Home />
               <Main packagesRef={packagesRef} />
+
               <Footer />
             </>
           }

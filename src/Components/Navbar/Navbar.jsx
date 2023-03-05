@@ -105,7 +105,7 @@ function NavBar({packagesRef}) {
                 )}
               </li>
 
-              <li className="navItem">
+              <li className="navItem ">
                 <a href="#" onClick={contactHandler} className="navLink">
                   Contact
                 </a>
@@ -115,10 +115,6 @@ function NavBar({packagesRef}) {
                   </>
                 )}
               </li>
-
-              <button className="btn">
-                <a href="#">BOOK NOW</a>
-              </button>
             </ul>
 
             <div onClick={removeNavbar} className="closeNavbar">

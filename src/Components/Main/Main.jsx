@@ -3,7 +3,7 @@ import "./main.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import img1 from "../../Assets/img1.jpg";
 import img2 from "../../Assets/img2.jpg";
 import img3 from "../../Assets/img3.jpg";
@@ -117,7 +117,8 @@ import "../../../node_modules/aos/dist/aos.css";
 function Main({packagesRef}) {
   const [Destinations, setDestinations] = useState([]);
   const [selectedDestination, setSelectedDestination] = useState(null);
-
+  const [loading, setLoading] = useState(true);
+  const [carRentals, setCarRentals] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const maxDate = new Date(startDate);
@@ -151,7 +152,7 @@ function Main({packagesRef}) {
   //     });
   // });
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  //                                              fetch destinacii
   useEffect(() => {
     const fetchDestinations = async () => {
       const databaseUrl =
@@ -166,13 +167,34 @@ function Main({packagesRef}) {
         const data = await response.json();
         const Destinations = Object.values(data);
         setDestinations(Destinations);
-        console.log(Destinations);
-      } catch (error) {
-        console.error(error);
-      }
+
+        setLoading(false);
+      } catch (error) {}
     };
 
     fetchDestinations();
+  }, []);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // fetch koli
+  useEffect(() => {
+    const fetchCarRentals = async () => {
+      const databaseUrl =
+        "https://travelagency-78872-default-rtdb.firebaseio.com";
+
+      const pathToCarRentals = "/carrental";
+
+      try {
+        const response = await fetch(`${databaseUrl}${pathToCarRentals}.json`);
+        const data = await response.json();
+        const carRentals = Object.values(data);
+        setCarRentals(carRentals);
+
+        setLoading(false);
+      } catch (error) {}
+    };
+
+    fetchCarRentals();
   }, []);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,59 +220,75 @@ function Main({packagesRef}) {
   useEffect(() => {
     Aos.init({duration: 2000});
   }, []);
+
+  for (let i = carRentals.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [carRentals[i], carRentals[j]] = [carRentals[j], carRentals[i]];
+  }
+
   return (
     <>
-      <section className="main container section">
-        <div className="secTitle">
-          <h3 data-aos="fade-right" className="title">
-            <div ref={packagesRef}>Most visited destinations</div>
-          </h3>
-        </div>
+      {!loading ? (
+        <section className="main container section">
+          <div className="secTitle">
+            <h3 data-aos="fade-right" className="title">
+              <div ref={packagesRef}>Most visited destinations</div>
+            </h3>
+          </div>
 
-        <div className="secContent grid">
-          {Destinations.map(
-            ({id, imgSrc, destTitle, location, grade, fees, description}) => {
-              return (
-                <div key={id} data-aos="fade-up" className="singleDestination">
-                  <div className="imageDiv">
-                    <img src={imgSrc} alt={destTitle} />
-                  </div>
-                  <div className="cardInfo">
-                    <h4 className="destTitle">{destTitle}</h4>
-                    <span className="continent flex">
-                      <HiOutlineLocationMarker className="icon" />
-                      <span className="name">{location}</span>
-                    </span>
-                    <div className="fees flex">
-                      <div className="grade">
-                        <span>
-                          {grade}
-                          <small>+1</small>
-                        </span>
-                      </div>
-                      <div className="price">
-                        <h5>{fees}</h5>
-                      </div>
+          <div className="secContent grid">
+            {Destinations.map(
+              ({id, imgSrc, destTitle, location, grade, fees, description}) => {
+                return (
+                  <div
+                    key={id}
+                    data-aos="fade-up"
+                    className="singleDestination"
+                  >
+                    <div className="imageDiv">
+                      <img src={imgSrc} alt={destTitle} />
                     </div>
+                    <div className="cardInfo">
+                      <h4 className="destTitle">{destTitle}</h4>
+                      <span className="continent flex">
+                        <HiOutlineLocationMarker className="icon" />
+                        <span className="name">{location}</span>
+                      </span>
+                      <div className="fees flex">
+                        <div className="grade">
+                          <span>
+                            {grade}
+                            <small>+1</small>
+                          </span>
+                        </div>
+                        <div className="price">
+                          <h5>${fees}</h5>
+                        </div>
+                      </div>
 
-                    <div className="desc">
-                      <p>{description.substring(0, 180)}...</p>
+                      <div className="desc">
+                        <p>{description.substring(0, 180)}...</p>
+                      </div>
+
+                      <button
+                        className="btn flex"
+                        onClick={() => detailsButtonHandler(id)}
+                      >
+                        BOOK NOW
+                        <BsClipboardCheck className="icon" />
+                      </button>
                     </div>
-
-                    <button
-                      className="btn flex"
-                      onClick={() => detailsButtonHandler(id)}
-                    >
-                      BOOK NOW
-                      <BsClipboardCheck className="icon" />
-                    </button>
                   </div>
-                </div>
-              );
-            }
-          )}
+                );
+              }
+            )}
+          </div>
+        </section>
+      ) : (
+        <div className="spinnerdestination">
+          <LoadingSpinner />
         </div>
-      </section>
+      )}
       {selectedDestination && (
         <div className="backdrop" onClick={backdropHandler}>
           <section className="main2 container">
@@ -268,7 +306,7 @@ function Main({packagesRef}) {
                         <HiOutlineLocationMarker className="icon" />
                         <span className="name">{location}</span>
                         <div className="price2">
-                          <h5>Price per day: {fees}</h5>
+                          <h5>Price per day: ${fees}</h5>
                         </div>
                       </span>
 
@@ -281,6 +319,26 @@ function Main({packagesRef}) {
 
                         <div className="imageDiv2">
                           <img src={imgSrc} alt={destTitle} />
+                          {/* /////////////////////////////////////////////////////////////////////////// */}
+                          <section className="section3cars">
+                            {carRentals
+                              .slice(0, 3)
+                              .map(({id, img, nameCar, pricePerDay}) => (
+                                <React.Fragment key={id}>
+                                  <div
+                                    className="idcardiv"
+                                    data-aos="fade-up"
+                                  ></div>
+                                  <div className="pricecardiv">
+                                    <h5>Price per day: ${pricePerDay}</h5>
+                                  </div>
+                                  <img src={img} />
+                                  <div className="namecardiv">
+                                    <h4 className="namecarh4">{nameCar}</h4>
+                                  </div>
+                                </React.Fragment>
+                              ))}
+                          </section>
                         </div>
                       </div>
                       <div className="dateRange">
@@ -306,6 +364,7 @@ function Main({packagesRef}) {
                           maxDate={maxDate}
                         />
                       </div>
+
                       <button
                         className="btn flex"
                         onClick={() => selectedBookNowHandler()}

@@ -12,7 +12,7 @@ import img9 from "../../Assets/sliki/opel astra 1.4cc.jpg";
 import img10 from "../../Assets/sliki/opel corsa 12500cc.jpg";
 import img11 from "../../Assets/sliki/tesla s 2021.jpg";
 import img12 from "../../Assets/sliki/toyota aygo 1.1 VVT-i 2018.jpg";
-
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Aos from "aos";
 import "../../../node_modules/aos/dist/aos.css";
 import {BsFillPersonCheckFill} from "react-icons/bs";
@@ -145,6 +145,7 @@ import {BsFillBagCheckFill} from "react-icons/bs";
 
 function Carrental({}) {
   const [carRentals, setCarRentals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Data.forEach((car) => {
   //   fetch(
@@ -185,9 +186,9 @@ function Carrental({}) {
         const data = await response.json();
         const carRentals = Object.values(data);
         setCarRentals(carRentals);
-      } catch (error) {
-        console.error(error);
-      }
+
+        setLoading(false);
+      } catch (error) {}
     };
 
     fetchCarRentals();
@@ -199,7 +200,6 @@ function Carrental({}) {
   const handleRentButtonClick = (id) => {
     setSelectedCarId(id);
   };
-  console.log(selectedCarId);
 
   const backdropHandler = (e) => {
     if (e.target === e.currentTarget) {
@@ -212,57 +212,69 @@ function Carrental({}) {
   }, []);
   return (
     <>
-      <section className="main1 container section ">
-        <div className="secTitle">
-          <h3 data-aos="fade-left" className="title">
-            <div>Cars available for renting</div>
-          </h3>
-        </div>
-        <div className="secContent1 ">
-          {carRentals.map(
-            ({id, img, nameCar, pricePerDay, seats, bags, description}) => {
-              return (
-                <div key={id} data-aos="fade-up" className="singleDestination">
-                  <div className="cardInfo">
-                    <h4 className="destTitle">{nameCar}</h4>
-                    <span className="continent flex">
-                      <span className="name">{pricePerDay}</span>
-                    </span>
-                    <div className="fees flex">
-                      <div className="grade1">
-                        <span>
-                          <BsFillPersonCheckFill className="icon" />
-                          <div>{seats}</div>
-                        </span>
-                        <span>
-                          <BsFillBagCheckFill className="icon" />
-                          <div>{bags}</div>
-                        </span>
-                      </div>
-                      <div className="price">
-                        <div className="imageDiv">
-                          <img src={img} alt={nameCar} />
+      (
+      {!loading ? (
+        <section className="main1 container section ">
+          <div className="secTitle">
+            <h3 data-aos="fade-left" className="title">
+              <div>Cars available for renting</div>
+            </h3>
+          </div>
+          <div className="secContent1 ">
+            {carRentals.map(
+              ({id, img, nameCar, pricePerDay, seats, bags, description}) => {
+                return (
+                  <div
+                    key={id}
+                    data-aos="fade-up"
+                    className="singleDestination"
+                  >
+                    <div className="cardInfo">
+                      <h4 className="destTitle">{nameCar}</h4>
+                      <span className="continent flex">
+                        <span className="name">{`for ${pricePerDay}$ per day`}</span>
+                      </span>
+                      <div className="fees flex">
+                        <div className="grade1">
+                          <span>
+                            <BsFillPersonCheckFill className="icon" />
+                            <div>{seats}</div>
+                          </span>
+                          <span>
+                            <BsFillBagCheckFill className="icon" />
+                            <div>{bags}</div>
+                          </span>
+                        </div>
+                        <div className="price">
+                          <div className="imageDiv">
+                            <img src={img} alt={nameCar} />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="desc">
-                      <p>{description.substring(0, 100)}...</p>
-                    </div>
+                      <div className="desc">
+                        <p>{description.substring(0, 100)}...</p>
+                      </div>
 
-                    <button
-                      className="btn flex"
-                      onClick={() => handleRentButtonClick(id)}
-                    >
-                      More details about this car
-                    </button>
+                      <button
+                        className="btn flex"
+                        onClick={() => handleRentButtonClick(id)}
+                      >
+                        More details about this car
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            }
-          )}
+                );
+              }
+            )}
+          </div>
+        </section>
+      ) : (
+        <div className="spinnercar">
+          <LoadingSpinner />
         </div>
-      </section>
+      )}
+      )
       {/* /////////////////////////////////////////////////////////////////////////////////////// */}
       {selectedCarId && (
         <div className="backdrop" onClick={backdropHandler}>
