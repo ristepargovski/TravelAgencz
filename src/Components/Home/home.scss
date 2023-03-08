@@ -65,9 +65,11 @@
     }
     .homeTitle {
       position: relative;
-      font-size: 1.8rem;
+      font-size: 3rem;
+      display: flex;
     }
   }
+
   .cardDiv {
     position: relative;
     padding: 2rem 1rem;
@@ -163,17 +165,58 @@
   }
 }
 // MEDIA QUERIES ////////////////////////////////////////////////
+@media screen and (min-width: 300px) {
+  .home {
+    .homeContent {
+      .textDiv {
+        .smallText {
+          font-size: 1.5rem;
+        }
+        .homeTitle {
+          position: relative;
+          font-size: 3rem;
+          width: max-content;
+          color: rgb(4, 43, 4);
+          padding: 0.2rem;
+          background-color: rgba(255, 255, 255, 0.479);
+          border-radius: 16px;
+
+          &::after {
+            position: absolute;
+            content: "";
+            // background: var(--SecondaryColor);
+            background: red;
+            height: 5px;
+            width: 70px;
+            right: 0px;
+            bottom: 5px;
+            z-index: -1;
+          }
+        }
+      }
+
+      .cardDiv {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}
 @media screen and (min-width: 500px) {
   .home {
     .homeContent {
       .textDiv {
         .smallText {
-          font-size: 16px;
+          font-size: 1.5rem;
         }
         .homeTitle {
           position: relative;
-          font-size: 2.3rem;
+          font-size: 3rem;
           width: max-content;
+          color: rgb(4, 43, 4);
+          padding: 0.2rem;
+          background-color: rgba(255, 255, 255, 0.479);
+          border-radius: 16px;
 
           &::after {
             position: absolute;
@@ -218,6 +261,7 @@
     .homeContent {
       padding-left: 0;
       padding-right: 0;
+
       .cardDiv {
         padding: 2rem 1rem;
         display: grid;

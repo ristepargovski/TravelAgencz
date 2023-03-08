@@ -136,30 +136,6 @@
   font-size: 18px;
 }
 
-@media screen and (min-width: 500px) {
-  .title {
-    font-size: 1.5rem;
-  }
-  .title::after {
-    width: 155px !important;
-  }
-  .secContent {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .secContent .singleDestination {
-    height: auto;
-  }
-}
-@media screen and (min-width: 840px) {
-  .secContent {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .secContent .singleDestination {
-    height: auto;
-  }
-}
 .main2 {
   height: 100%;
   margin: 0;
@@ -179,7 +155,7 @@
   overflow: hidden;
 }
 .main2 .singleDestination2 .imageDiv2 {
-  width: 50%;
+  width: 100%;
   overflow: hidden;
 }
 .main2 .singleDestination2 .imageDiv2 img {
@@ -191,7 +167,7 @@
   transition: 0.2s ease;
 }
 .main2 .singleDestination2 .cardInfo2 {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 .main2 .singleDestination2 .cardInfo2 .price2 {
   width: 100%;
@@ -220,14 +196,16 @@
 }
 .main2 .singleDestination2 .cardInfo2 .fees2 {
   width: 100%;
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1rem;
   margin: 1rem 0;
   border-top: 1.5px solid var(--greyText);
   border-bottom: 1.5px solid var(--greyText);
 }
 .main2 .singleDestination2 .cardInfo2 .fees2 .grade2 {
-  max-width: 45%;
+  max-width: 40%;
   color: var(--textColor);
   display: flex;
   align-items: center;
@@ -290,25 +268,32 @@
   border-radius: 1rem;
   text-align: center;
   color: rgb(26, 24, 24);
+  cursor: pointer;
 }
 
 .section3cars {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr auto;
   gap: 1.2rem;
   padding-top: 2%;
+  padding-bottom: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  overflow: visible;
   /* hide all .namecarh4 elements by default */
   /* show the corresponding .namecarh4 element when the corresponding img element is hovered over */
 }
 .section3cars img {
   -o-object-fit: contain;
      object-fit: contain;
-  mix-blend-mode: darken;
   grid-row: 2/3; /* place img in second row */
+  z-index: 1;
+  scale: 1.8;
 }
 .section3cars img:hover {
-  transform: scale(1.5);
+  transform: scale(2.7);
+  z-index: 2;
 }
 .section3cars .idcardiv {
   display: none;
@@ -342,10 +327,84 @@
 }
 
 .namecardiv {
+  width: 100%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  z-index: 2222;
+  padding-bottom: 2.3rem;
+}
+
+.bottompriceall {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dateRangeContainer {
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.destinacijacenacela {
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: rgba(255, 255, 255, 0.5) solid 1px;
+  border-radius: 10px;
+  padding: 0.5rem 2rem 2rem 1rem;
+}
+
+.destinacija {
+  width: 100%;
+  display: flex;
+  gap: 5rem;
+}
+
+.ime {
+  width: 37%;
+}
+
+.lokacija {
+  width: 37.5%;
+  position: absolute;
+  left: 39%;
+}
+
+.cena {
+  width: 37.5%;
+  position: absolute;
+  left: 70%;
+}
+
+.separator {
+  width: 100%;
+  border-top: 1.5px solid var(--greyText);
+}
+
+@media screen and (min-width: 500px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  .title::after {
+    width: 155px !important;
+  }
+  .secContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .secContent .singleDestination {
+    height: auto;
+  }
+}
+@media screen and (min-width: 840px) {
+  .secContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .secContent .singleDestination {
+    height: auto;
+  }
 }/*# sourceMappingURL=main.css.map */

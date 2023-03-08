@@ -13,6 +13,7 @@ import "../../../node_modules/aos/dist/aos.css";
 function Footer() {
   const emailInput = useRef("");
   const [email, setEmail] = useState("");
+
   const sendButtonHandler = () => {
     const emailRef = emailInput.current.value;
     console.log(emailRef);
@@ -32,6 +33,7 @@ function Footer() {
   useEffect(() => {
     Aos.init({duration: 2000});
   }, []);
+
   return (
     <section className="footer">
       <div className="videoDiv">
@@ -73,10 +75,13 @@ function Footer() {
             </div>
 
             <div data-aos="fade-up" className="footerParagraph">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-              facilis omnis nostrum, modi eius maiores quaerat illum
-              voluptatibus amet odio hic, provident quisquam aperiam. Earum, ab.
-              Fugit et nam sint.
+              Started in 2018, Travel.Tly for Business has become one of the
+              world’s largest online booking tools for corporate travel. Part of
+              Travel.Tly, it’s Travel.Tly for Business’ mission to help
+              businesses reduce their travel spend by providing enterprise-grade
+              travel management software at no cost and offer one of the widest
+              selections of travel options in the world at highly competitive
+              rates.
             </div>
             <div data-aos="fade-up" className="footerSocials">
               <AiOutlineTwitter className="icon" />

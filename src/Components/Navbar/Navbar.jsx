@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useReducer} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import NavbarReducer from "./NavbarReducer";
+import initialState from "./NavbarReducer";
 import "./navbar.css";
 import About from "../About/About.jsx";
 
@@ -10,13 +12,18 @@ import Contact from "../Contact/Contact";
 import Aos from "aos";
 import "../../../node_modules/aos/dist/aos.css";
 function NavBar({packagesRef}) {
+  const [active, setActive] = useState("navBar");
+  // const [showContact, setShowContact] = useState(false);
+  // const [showAbout, setShowAbout] = useState(false);
+
+  const [state, dispatch] = useReducer(NavbarReducer, initialState);
+  const {showContact, showAbout} = state;
+
   const navigate = useNavigate();
   useEffect(() => {
     Aos.init({duration: 2000});
   }, []);
-  const [active, setActive] = useState("navBar");
-  const [showContact, setShowContact] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
+
   const showNav = () => {
     setActive("navBar activeNavbar");
   };
@@ -25,37 +32,43 @@ function NavBar({packagesRef}) {
   };
   const contactHandler = (event) => {
     event.preventDefault();
-    setShowContact(!showContact);
-    setShowAbout(false);
+    // setShowContact(!showContact);
+    // setShowAbout(false);
+    dispatch({type: "contactHandler"});
   };
   const aboutHandler = (event) => {
     event.preventDefault();
-    setShowAbout(!showAbout);
-    setShowContact(false);
+    // setShowAbout(!showAbout);
+    // setShowContact(false);
+    dispatch({type: "aboutHandler"});
   };
   function packagesHandler(event) {
     event.preventDefault();
-    setShowContact(false);
-    setShowAbout(false);
+    // setShowContact(false);
+    // setShowAbout(false);
+    dispatch({type: "packagesHandler"});
     navigate("/");
     packagesRef.current.scrollIntoView({behavior: "smooth"});
   }
 
   function homeHandler() {
-    setShowContact(false);
-    setShowAbout(false);
+    // setShowContact(false);
+    // setShowAbout(false);
+    dispatch({type: "packagesHandler"});
     navigate("/");
   }
 
   function logoHandler() {
-    setShowContact(false);
-    setShowAbout(false);
+    // setShowContact(false);
+    // setShowAbout(false);
+    dispatch({type: "packagesHandler"});
     navigate("/");
   }
 
   function carrentalHandler() {
-    setShowContact(false);
-    setShowAbout(false);
+    // setShowContact(false);
+    // setShowAbout(false);
+    dispatch({type: "packagesHandler"});
     navigate("/");
   }
   return (

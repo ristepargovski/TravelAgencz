@@ -1,21 +1,35 @@
-import React, {useRef, useState} from "react";
+import {useRef, useState, useReducer} from "react";
 import "./contact.css";
 import {GoArrowRight} from "react-icons/go";
 import {RiErrorWarningFill} from "react-icons/ri";
+import ReducerContact, {initialState} from "./ReducerContact";
 function Contact() {
-  const [nameError, SetNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [subjectError, setSubjectError] = useState("");
-  const [messageError, setMessageError] = useState("");
+  const [state, dispatch] = useReducer(ReducerContact, initialState);
+  const {
+    successMessage,
+    successName,
+    successEmail,
+    successSubject,
+    nameError,
+    emailError,
+    subjectError,
+    messageError,
+  } = state;
+  // const [nameError, SetNameError] = useState("");
+  // const [emailError, setEmailError] = useState("");
+  // const [subjectError, setSubjectError] = useState("");
+  // const [messageError, setMessageError] = useState("");
+  //
   const [emptyName, setEmptyName] = useState("");
   const [emptyEmail, setEmptyEmail] = useState("");
   const [emptySubject, setEmptySubject] = useState("");
   const [emptyMessage, setEmptyMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(false);
-  const [successName, setSuccessName] = useState(false);
-  const [successEmail, setSuccessEmail] = useState(false);
-  const [successSubject, setSuccessSubject] = useState(false);
-
+  // //
+  // const [successMessage, setSuccessMessage] = useState(false);
+  // const [successName, setSuccessName] = useState(false);
+  // const [successEmail, setSuccessEmail] = useState(false);
+  // const [successSubject, setSuccessSubject] = useState(false);
+  //
   const nameref = useRef();
   const emailref = useRef();
   const subjectref = useRef();
@@ -27,16 +41,16 @@ function Contact() {
     const subjectRefRdy = subjectref.current.value;
     const messageRefRdy = messageref.current.value;
     if (nameRefRdy.length === 0) {
-      SetNameError("Please enter your name.\n");
+      dispatch({type: "SetNameError1"});
     }
     if (emailRefRdy.length === 0) {
-      setEmailError("Please enter your email address.\n");
+      dispatch({type: "setEmailError1"});
     }
     if (subjectRefRdy.length === 0) {
-      setSubjectError("Please enter a subject.\n");
+      dispatch({type: "setSubjectError1"});
     }
     if (messageRefRdy.length === 0) {
-      setMessageError("Please enter a message.\n");
+      dispatch({type: "setMessageError1"});
     } else {
       fetch(
         "https://travelagency-78872-default-rtdb.firebaseio.com/contact.json",
@@ -60,12 +74,9 @@ function Contact() {
           successEmail === false ||
           successSubject === false
         ) {
-          setSuccessMessage(true);
-          setSuccessName(true);
-          setSuccessEmail(true);
-          setSuccessSubject(true);
+          dispatch({type: "successAll"});
         } else {
-          setSuccessMessage(false);
+          dispatch({type: "falseMessage"});
         }
       });
 
@@ -96,11 +107,10 @@ function Contact() {
               nameref.current.value = e.target.value;
               if (e.target.value.length === 0) {
                 nameref.current.style.borderColor = "red";
-                SetNameError("Please enter your name.\n");
+                dispatch({type: "SetNameError1"});
               } else {
                 nameref.current.style.borderColor = "black";
-                setSuccessName(false);
-                SetNameError("");
+                dispatch({type: "falseNameWithError"});
               }
             }}
           />
@@ -119,10 +129,10 @@ function Contact() {
               emailref.current.value = e.target.value;
               if (e.target.value.length === 0) {
                 emailref.current.style.borderColor = "red";
+                dispatch({type: "setEmailError1"});
               } else {
                 emailref.current.style.borderColor = "black";
-                setSuccessEmail(false);
-                setEmailError("");
+                dispatch({type: "falseEmailWithError"});
               }
             }}
           />
@@ -141,10 +151,11 @@ function Contact() {
               subjectref.current.value = e.target.value;
               if (e.target.value.length === 0) {
                 subjectref.current.style.borderColor = "red";
+                dispatch({type: "setSubjectError1"});
               } else {
                 subjectref.current.style.borderColor = "black";
-                setSuccessSubject(false);
-                setSubjectError("");
+
+                dispatch({type: "falseSubjectWithError"});
               }
             }}
           />
@@ -163,10 +174,11 @@ function Contact() {
               messageref.current.value = e.target.value;
               if (e.target.value.length === 0) {
                 messageref.current.style.borderColor = "red";
+                dispatch({type: "setMessageError1"});
               } else {
                 messageref.current.style.borderColor = "black";
-                setSuccessMessage(false);
-                setMessageError("");
+
+                dispatch({type: "falseSubjectWithError"});
               }
             }}
           />

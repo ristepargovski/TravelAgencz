@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from "react";
 import "./carrental.css";
-import img1 from "../../Assets/sliki/2017-Opel Zafira-8.jpg";
+import img1 from "../../Assets/sliki/2017-Opel Zafira-8.png";
 import img2 from "../../Assets/sliki/audi q5 2015 s line.png";
-import img3 from "../../Assets/sliki/dodge ram 1500 2019.jpg";
-import img4 from "../../Assets/sliki/hyndai i10.png";
-import img5 from "../../Assets/sliki/mazda cx-5 2.5 turbo 2022.webp";
-import img6 from "../../Assets/sliki/mercedes c220d 4amatic 2020.jpg";
-import img7 from "../../Assets/sliki/mitsubishi-pajero-sport-4 4x4.jpg";
-import img8 from "../../Assets/sliki/nissan kaškai.png";
-import img9 from "../../Assets/sliki/opel astra 1.4cc.jpg";
-import img10 from "../../Assets/sliki/opel corsa 12500cc.jpg";
-import img11 from "../../Assets/sliki/tesla s 2021.jpg";
-import img12 from "../../Assets/sliki/toyota aygo 1.1 VVT-i 2018.jpg";
+import img3 from "../../Assets/sliki/hyndai i10.png";
+import img4 from "../../Assets/sliki/mazda cx-5 2.5 turbo 2022.webp";
+import img5 from "../../Assets/sliki/mercedes c220d 4amatic 2020.png";
+import img6 from "../../Assets/sliki/nissan kaškai.png";
+import img7 from "../../Assets/sliki/opel astra 1.4cc.png";
+import img8 from "../../Assets/sliki/opel corsa 12500cc.png";
+import img9 from "../../Assets/sliki/toyota aygo 1.1 VVT-i 2018.png";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Aos from "aos";
 import "../../../node_modules/aos/dist/aos.css";
@@ -23,7 +20,7 @@ import {BsFillBagCheckFill} from "react-icons/bs";
 //     id: 1,
 //     imgSrc: img1,
 //     nameCar: "Opel Zafira",
-//     pricePerDay: "for 25$ per day",
+//     pricePerDay: "25",
 //     seats: "6-7",
 //     bags: "4 bags",
 //     description:
@@ -34,27 +31,18 @@ import {BsFillBagCheckFill} from "react-icons/bs";
 //     id: 2,
 //     imgSrc: img2,
 //     nameCar: "AUDI Q5 S Line",
-//     pricePerDay: "for 57$ per day",
+//     pricePerDay: "57",
 //     seats: "4-5",
 //     bags: "4 bags",
 //     description:
 //       "The Audi Q5 S Line 2015 is a luxury mid-size SUV with 5 doors and seating for 5. It has a 2.0-liter 4-cylinder TFSI engine producing 220 hp, can reach 0-100 km/h in 7.1 seconds, and has a top speed of 225 km/h. With the S Line package, it offers a sportier exterior and improved driving dynamics.",
 //   },
+
 //   {
 //     id: 3,
 //     imgSrc: img3,
-//     nameCar: "Dodge Ram 1500",
-//     pricePerDay: "for 45$ per day",
-//     seats: "2-6",
-//     bags: "5 bags",
-//     description:
-//       "The 2019 Dodge Ram 1500 is a full-size pickup truck with a 5.7-liter V8 HEMI engine that produces 395 hp, and can tow up to 12,750 lbs. It seats up to 6, with a spacious interior and 12-inch infotainment display.",
-//   },
-//   {
-//     id: 4,
-//     imgSrc: img4,
 //     nameCar: "Hyundai i10",
-//     pricePerDay: "for 13$ per day",
+//     pricePerDay: "13",
 //     seats: "4-5",
 //     bags: "2 bags",
 //     description:
@@ -62,80 +50,62 @@ import {BsFillBagCheckFill} from "react-icons/bs";
 //   },
 
 //   {
-//     id: 5,
-//     imgSrc: img5,
+//     id: 4,
+//     imgSrc: img4,
 //     nameCar: "Mazda Cx-5 2.5 Turbo",
-//     pricePerDay: "for 24$ per day",
+//     pricePerDay: "24",
 //     seats: "4-5",
 //     bags: "4 bags",
 //     description:
 //       "The Mazda CX-5 2.5 Turbo 2022 is a compact SUV with a 2.5-liter 4-cylinder turbocharged engine producing 250 hp, 0-60 mph in 6.2 seconds, and top speed of 130 mph. It has 5 doors, seats 5, a premium interior, advanced safety features, and intuitive infotainment system.",
 //   },
 //   {
-//     id: 6,
-//     imgSrc: img6,
+//     id: 5,
+//     imgSrc: img5,
 //     nameCar: "Mercedes C220D 4 aMatic",
-//     pricePerDay: "for 36$ per day",
+//     pricePerDay: "36",
 //     seats: "4-5",
 //     bags: "3 bags",
 //     description:
 //       "The Mercedes C220d 4MATIC 2020 is a compact luxury sedan with 4 doors and seating for 5 passengers. It has a 2.0-liter 4-cylinder diesel engine producing 194 hp, can accelerate from 0-60 mph in 7.1 seconds, and has a top speed of 149 mph. It features advanced safety technologies and the 4MATIC all-wheel drive system.",
 //   },
+
 //   {
-//     id: 7,
-//     imgSrc: img7,
-//     nameCar: "Mitsubishi Pajero Sport 4x4",
-//     pricePerDay: "for 40$ per day",
-//     seats: "6-7",
-//     bags: "4 bags",
-//     description:
-//       "The Mitsubishi Pajero Sport 4 4x4 is a mid-size SUV with 5 doors and seating for up to 7 passengers. It has a 2.4-liter 4-cylinder diesel engine producing 181 hp, and features a 4x4 drivetrain, advanced safety features, and off-road capabilities. The Pajero Sport offers a spacious interior and a comfortable ride.",
-//   },
-//   {
-//     id: 8,
-//     imgSrc: img8,
+//     id: 6,
+//     imgSrc: img6,
 //     nameCar: "Nissan Qashqai",
-//     pricePerDay: "for 16$ per day",
+//     pricePerDay: "16",
 //     seats: "4-5",
 //     bags: "3 bags",
 //     description:
 //       "The Nissan Qashqai is a compact crossover SUV with 5 doors and 5 seats. It has a top speed of 188 km/h and can reach 0 to 100 km/h in 9.9-11.5 seconds, depending on the engine. The 2022 model boasts advanced tech and a modern design.",
 //   },
 //   {
-//     id: 9,
-//     imgSrc: img9,
+//     id: 7,
+//     imgSrc: img7,
 //     nameCar: "Opel Astra 1.4",
-//     pricePerDay: "for 10$ per day",
+//     pricePerDay: "10",
 //     seats: "4-5",
 //     bags: "3 bags",
 //     description:
 //       "The Opel Astra 1.4cc is a compact car with a 1.4-liter engine. It has 5 doors and can seat up to 5 people. Its fuel consumption ranges from 5.5 to 6.4 litres/100km, depending on the model. The Astra is known for its stylish design, comfort, and reliability.",
 //   },
 //   {
-//     id: 10,
-//     imgSrc: img10,
+//     id: 8,
+//     imgSrc: img8,
 //     nameCar: "Opel Corsa",
-//     pricePerDay: "for 10$ per day",
+//     pricePerDay: "10",
 //     seats: "4-5",
 //     bags: "2 bags",
 //     description:
 //       "The Opel Corsa is a subcompact car known for its efficiency, practicality, and affordability. It has 3-5 doors and can seat up to 5 people. The latest model features a range of advanced safety and connectivity technologies, as well as an electric version with a driving range of up to 330 km.",
 //   },
+
 //   {
-//     id: 11,
-//     imgSrc: img11,
-//     nameCar: "Tesla Model S",
-//     pricePerDay: "for 34$ per day",
-//     seats: "5-7",
-//     bags: "4 bags",
-//     description:
-//       "The 2021 Tesla Model S is a luxury electric sedan with impressive performance and technology. It can go from 0 to 60 mph in 1.99 seconds, has a top speed of 200 mph, and a range of up to 402 miles. The minimalist interior boasts a 17-inch touch screen and advanced driver assistance features.",
-//   },
-//   {
-//     id: 12,
-//     imgSrc: img12,
+//     id: 9,
+//     imgSrc: img9,
 //     nameCar: "Toyota Aygo 1.1 VVT-i ",
-//     pricePerDay: "for 9$ per day",
+//     pricePerDay: "9",
 //     seats: "3-4",
 //     bags: "2 bags",
 //     description:
@@ -146,7 +116,9 @@ import {BsFillBagCheckFill} from "react-icons/bs";
 function Carrental({}) {
   const [carRentals, setCarRentals] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [selectedCarId, setSelectedCarId] = useState(null);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // fetch da stavish vo api site Cars
   // Data.forEach((car) => {
   //   fetch(
   //     "https://travelagency-78872-default-rtdb.firebaseio.com/carrental.json",
@@ -194,8 +166,10 @@ function Carrental({}) {
     fetchCarRentals();
   }, []);
 
+  useEffect(() => {
+    Aos.init({duration: 800});
+  }, []);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const [selectedCarId, setSelectedCarId] = useState(null);
 
   const handleRentButtonClick = (id) => {
     setSelectedCarId(id);
@@ -207,9 +181,6 @@ function Carrental({}) {
     }
   };
 
-  useEffect(() => {
-    Aos.init({duration: 800});
-  }, []);
   return (
     <>
       (
@@ -293,7 +264,9 @@ function Carrental({}) {
                         <h4 className="destTitle2">{nameCar}</h4>
 
                         <span className="continent2 flex">
-                          <span className="name2">{pricePerDay}</span>
+                          <span className="name2">
+                            Price per day: ${pricePerDay}
+                          </span>
                           <div className="grade2">
                             <span>
                               <BsFillPersonCheckFill className="icon" />

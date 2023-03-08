@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
+import {useRef} from "react";
 import "./main.css";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
@@ -114,45 +114,61 @@ import "../../../node_modules/aos/dist/aos.css";
 //   },
 // ];
 
-function Main({packagesRef}) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Data.forEach((destination) => {
+//   fetch(
+//     "https://travelagency-78872-default-rtdb.firebaseio.com/MainDestinations.json",
+//     {
+//       method: "POST",
+//       body: JSON.stringify({
+//         id: destination.id,
+//         imgSrc: destination.imgSrc,
+//         destTitle: destination.destTitle,
+//         location: destination.location,
+//         grade: destination.grade,
+//         fees: destination.fees,
+//         description: destination.description,
+//       }),
+//     }
+//   )
+//     .then((response) => {
+//       console.log(
+//         `Data for destination ${destination.id} has been stored in Firebase`
+//       );
+//     })
+//     .catch((error) => {
+//       console.error(
+//         `Error storing data for car ${destination.id} in Firebase: ${error}`
+//       );
+//     });
+// });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                              fetch destinacii
+
+const Main = ({packagesRef}) => {
   const [Destinations, setDestinations] = useState([]);
   const [selectedDestination, setSelectedDestination] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [carRentals, setCarRentals] = useState([]);
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+
+  const today = new Date();
+  const tomorrow = new Date();
   const maxDate = new Date(startDate);
   maxDate.setDate(startDate.getDate() + 13);
+  tomorrow.setDate(today.getDate() + 1);
 
-  // Data.forEach((destination) => {
-  //   fetch(
-  //     "https://travelagency-78872-default-rtdb.firebaseio.com/MainDestinations.json",
-  //     {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         id: destination.id,
-  //         imgSrc: destination.imgSrc,
-  //         destTitle: destination.destTitle,
-  //         location: destination.location,
-  //         grade: destination.grade,
-  //         fees: destination.fees,
-  //         description: destination.description,
-  //       }),
-  //     }
-  //   )
-  //     .then((response) => {
-  //       console.log(
-  //         `Data for destination ${destination.id} has been stored in Firebase`
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         `Error storing data for car ${destination.id} in Firebase: ${error}`
-  //       );
-  //     });
-  // });
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //                                              fetch destinacii
+  const [selectedDestinationFees, setSelectedDestinationFees] = useState(null);
+  const [selectedCarFees, setSelectedCarFees] = useState(null);
+  const [daysToCalculate, setDaysToCalculate] = useState();
+  const [selectedCarIdPrice, setSelectedCarIdPrice] = useState();
+  const [wholePrice, setWholePrice] = useState(null);
+
+  const selectedCarIDRef = useRef(null);
+
   useEffect(() => {
     const fetchDestinations = async () => {
       const databaseUrl =
@@ -177,6 +193,39 @@ function Main({packagesRef}) {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // fetch koli
+
+  useEffect(() => {
+    const selectedDestinationObj = Destinations.find(
+      ({id}) => id === selectedDestination
+    );
+    if (selectedDestinationObj) {
+      setSelectedDestinationFees(selectedDestinationObj.fees);
+    } else {
+      setSelectedDestinationFees(null);
+    }
+  }, [selectedDestination]);
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    const selectedCarObj = carRentals.find(({id}) => id === selectedCarIdPrice);
+    if (selectedCarObj) {
+      setSelectedCarFees(selectedCarObj.pricePerDay);
+    } else {
+      setSelectedCarFees(null);
+    }
+  }, [selectedCarIdPrice]);
+
+  useEffect(() => {
+    const sumPrice = selectedCarFees * daysToCalculate;
+    const priceDest = parseInt(selectedDestinationFees);
+    let wholePriceConst = sumPrice + priceDest;
+    if (wholePriceConst) {
+      setWholePrice(wholePriceConst);
+    } else {
+      setWholePrice(null);
+    }
+  }, [selectedCarFees, daysToCalculate, selectedDestinationFees]);
+
   useEffect(() => {
     const fetchCarRentals = async () => {
       const databaseUrl =
@@ -203,13 +252,32 @@ function Main({packagesRef}) {
     setSelectedDestination(id);
   };
 
-  const selectedBookNowHandler = () => {
-    const oneDay = 1000 * 60 * 60 * 24; // number of milliseconds in a day
-    const differenceInMs = endDate.getTime() - startDate.getTime() + oneDay; // difference in milliseconds, including both start and end dates
-    const diffInDays = Math.ceil(differenceInMs / oneDay); // difference in days, rounded up
-
-    console.log(diffInDays); // denovi selektirani gi pokazuva
+  const handleDateChange = (date, isStart) => {
+    if (isStart) {
+      setStartDate(date);
+    } else {
+      setEndDate(date);
+    }
   };
+
+  const calculateNumberOfDays = () => {
+    const oneDay = 1000 * 60 * 60 * 24; // number of milliseconds in a day
+    const startDateMs = startDate ? startDate.getTime() : 0;
+    const endDateMs = endDate ? endDate.getTime() : 0;
+    const differenceInMs = endDateMs - startDateMs + oneDay; // difference in milliseconds, including both start and end dates
+    const diffInDays = Math.ceil(differenceInMs / oneDay); // difference in days, rounded up
+    setDaysToCalculate(diffInDays);
+
+    if (diffInDays <= 0) {
+      console.log("Please select valid start and end dates.");
+      return;
+    }
+  };
+
+  useEffect(() => {
+    calculateNumberOfDays();
+  }, [endDate]);
+
   const backdropHandler = (e) => {
     if (e.target === e.currentTarget) {
       // if the click target is the backdrop itself, set the selectedDestination state to null
@@ -225,6 +293,12 @@ function Main({packagesRef}) {
     const j = Math.floor(Math.random() * (i + 1));
     [carRentals[i], carRentals[j]] = [carRentals[j], carRentals[i]];
   }
+
+  const imgCarIDHandler = (id) => {
+    selectedCarIDRef.current = id;
+
+    setSelectedCarIdPrice(selectedCarIDRef.current);
+  };
 
   return (
     <>
@@ -306,7 +380,7 @@ function Main({packagesRef}) {
                         <HiOutlineLocationMarker className="icon" />
                         <span className="name">{location}</span>
                         <div className="price2">
-                          <h5>Price per day: ${fees}</h5>
+                          <h5>Price: ${fees}</h5>
                         </div>
                       </span>
 
@@ -321,9 +395,8 @@ function Main({packagesRef}) {
                           <img src={imgSrc} alt={destTitle} />
                           {/* /////////////////////////////////////////////////////////////////////////// */}
                           <section className="section3cars">
-                            {carRentals
-                              .slice(0, 3)
-                              .map(({id, img, nameCar, pricePerDay}) => (
+                            {carRentals.map(
+                              ({id, img, nameCar, pricePerDay}) => (
                                 <React.Fragment key={id}>
                                   <div
                                     className="idcardiv"
@@ -332,42 +405,96 @@ function Main({packagesRef}) {
                                   <div className="pricecardiv">
                                     <h5>Price per day: ${pricePerDay}</h5>
                                   </div>
-                                  <img src={img} />
+                                  <img
+                                    className="slika111"
+                                    src={img}
+                                    onClick={() => imgCarIDHandler(id)}
+                                  />
                                   <div className="namecardiv">
                                     <h4 className="namecarh4">{nameCar}</h4>
                                   </div>
                                 </React.Fragment>
-                              ))}
+                              )
+                            )}
                           </section>
                         </div>
                       </div>
-                      <div className="dateRange">
-                        <h3>FROM:</h3>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
-                          selectsStart
-                          startDate={startDate}
-                          endDate={endDate}
-                          maxDate={maxDate}
-                        />
-                      </div>
-                      <div className="dateRange">
-                        <h3>TO:</h3>
-                        <DatePicker
-                          selected={endDate}
-                          onChange={(date) => setEndDate(date)}
-                          selectsEnd
-                          startDate={startDate}
-                          endDate={endDate}
-                          minDate={startDate}
-                          maxDate={maxDate}
-                        />
+                      <div className="bottompriceall">
+                        <div className="dateRangeContainer">
+                          <div className="dateRange">
+                            <h3>FROM:</h3>
+                            <DatePicker
+                              selected={startDate}
+                              onChange={(date) => {
+                                handleDateChange(date, true);
+                                calculateNumberOfDays();
+                              }}
+                              selectsStart
+                              startDate={startDate}
+                              endDate={endDate}
+                              minDate={tomorrow}
+                            />
+                          </div>
+                          <div className="dateRange">
+                            <h3>TO:</h3>
+                            <DatePicker
+                              selected={endDate}
+                              onChange={(date) => {
+                                handleDateChange(date, false);
+                              }}
+                              selectsEnd
+                              startDate={startDate}
+                              endDate={endDate}
+                              minDate={startDate}
+                              maxDate={maxDate}
+                              placeholderText="Select a date"
+                            />
+                          </div>
+                        </div>
+
+                        {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+                        <div className="destinacijacenacela">
+                          {Destinations.filter(
+                            ({id}) => id === selectedDestination
+                          ).map(({destTitle, location, fees}) => (
+                            <>
+                              <div className="destinacija">
+                                <p className="ime">{destTitle}</p>
+                                <p className="lokacija">{location}</p>
+                                <p className="cena">${fees}</p>
+                              </div>
+                              <div className="separator" />
+                              {carRentals
+                                .filter(({id}) => id === selectedCarIdPrice)
+                                .map(({id, nameCar, pricePerDay}) => (
+                                  <div className="destinacija">
+                                    <p className="ime">{nameCar}</p>
+
+                                    {daysToCalculate * pricePerDay > 0 ? (
+                                      <p className="lokacija">
+                                        For {daysToCalculate} days its: $
+                                        {daysToCalculate * pricePerDay}
+                                      </p>
+                                    ) : null}
+                                    <p className="cena">
+                                      Price per day: ${pricePerDay}
+                                    </p>
+                                  </div>
+                                ))}
+                              <div className="separator" />
+                              <div className="destinacija">
+                                <p className="cena">
+                                  Whole price is: $ {wholePrice}
+                                </p>
+                              </div>
+                            </>
+                          ))}
+                        </div>
                       </div>
 
                       <button
                         className="btn flex"
-                        onClick={() => selectedBookNowHandler()}
+                        // onClick={() => selectedBookNowHandler()}
                       >
                         BOOK NOW
                         <BsClipboardCheck className="icon" />
@@ -383,6 +510,6 @@ function Main({packagesRef}) {
       ;
     </>
   );
-}
+};
 
 export default Main;
